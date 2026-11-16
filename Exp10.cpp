@@ -1,0 +1,74 @@
+
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+template <typename type>
+class Tree {
+
+    struct Node {
+        type data;
+        Node* left;
+        Node* right;
+
+        Node(type d) {
+            data = d;
+            left = right = nullptr;
+        }
+    };
+
+public:
+    Node* Root = nullptr;
+
+    Tree() {
+        Node* f = new Node('F');
+        Node* b = new Node('B');
+        Node* g = new Node('G');
+        Node* a = new Node('A');
+        Node* d = new Node('D');
+        Node* i = new Node('I');
+        Node* c = new Node('C');
+        Node* e = new Node('E');
+        Node* h = new Node('H');
+
+        f->left = b;
+        f->right = g;
+
+        b->left = a;
+        b->right = d;
+
+        g->right = i;
+
+        d->left = c;
+        d->right = e;
+
+        i->left = h;
+
+        Root = f;
+    }
+
+    int height(Node* ptr) {
+        if (ptr == nullptr) {
+            return 0;
+        }
+
+        int leftHeight = height(ptr->left);
+        int rightHeight = height(ptr->right);
+
+        return 1 + max(leftHeight, rightHeight);
+    }
+};
+
+int main() {
+    Tree<char> obj;
+
+    if (obj.Root == nullptr) {
+        cout << "Tree is empty";
+    }
+    else {
+        cout << "Height of Binary Tree: "
+             << obj.height(obj.Root);
+    }
+
+    return 0;
+}
